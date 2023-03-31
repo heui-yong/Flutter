@@ -19,7 +19,13 @@ class MyApp extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: const Text(
+                      '부산역',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   )
                 ],
           ))
