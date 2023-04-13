@@ -26,15 +26,12 @@ class MyApp extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-<<<<<<< HEAD
-=======
                   ),
                   Text(
                     '부산광역시, 동구, 초량동',
                     style: TextStyle(
                       color: Colors.grey[500],
                     ),
->>>>>>> 307372b (simeple_map_info)
                   )
                 ],
             )
