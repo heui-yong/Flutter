@@ -23,11 +23,47 @@ class HorizonsApp extends StatelessWidget {
       scrollBehavior: const ConstantScrollBehavior(),
       title: 'Horizons Weather',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Horizons'),
-          backgroundColor: Colors.teal[800],
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              pinned: true,
+              stretch: true,
+              onStretchTrigger: () async {
+                print("Load more data!");
+              },
+              backgroundColor: Colors.teal[800],
+              // floating: true, // 아래로 스크롤 후 위로 스크롤 시 앱 바 노출
+              // snap: true, //floating 사용 시 위로 스크롤하면 앱 바의 전체가 노출
+              expandedHeight: 200, // 아래로 스크롤 시 앱바가 축소
+              flexibleSpace: FlexibleSpaceBar(
+                stretchModes: <StretchMode>[
+                  StretchMode.zoomBackground,
+                  StretchMode.blurBackground,
+                  StretchMode.fadeTitle,
+                ],
+                title: Text('Horizons'),
+                background: DecoratedBox(
+                  position: DecorationPosition.foreground,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.center,
+                      colors: <Color>[
+                        Colors.teal[800]!,
+                        Colors.transparent,
+                      ]
+                    ),
+                  ),
+                  child: Image.network(
+                    headerImage,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+            WeeklyForecastList(),
+          ],
         ),
-        body: const WeeklyForecastList(),
       ),
     );
   }
@@ -40,29 +76,68 @@ class WeeklyForecastList extends StatelessWidget {
   Widget build(BuildContext context) {
     final DateTime currentDate = DateTime.now();
     final TextTheme textTheme = Theme.of(context).textTheme;
-    final List<DailyForecast> forecasts = Server.getDailyForecastList();
 
-    return SingleChildScrollView(
-      child: Column(
-        children: forecasts.map((dailyForecast) {
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (BuildContext context, int index) {
+          final DailyForecast dailyForecast = Server.getDailyForecastByID(index);
           return Card(
-            child: ListTile(
-              leading: Text(
-                dailyForecast.getDate(currentDate.day).toString(),
-                style: textTheme.headlineMedium,
-              ),
-              title: Text(
-                dailyForecast.getWeekday(currentDate.weekday),
-                style: textTheme.headlineSmall,
-              ),
-              subtitle: Text(dailyForecast.description),
-              trailing: Text(
-                '${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F',
-                style: textTheme.titleSmall,
-              ),
+            child: Row(
+              children: <Widget>[
+                SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      DecoratedBox(
+                        position: DecorationPosition.foreground,
+                        decoration: BoxDecoration(
+                          gradient: RadialGradient(
+                            colors: <Color>[
+                              Colors.grey[800]!,
+                              Colors.transparent,
+                            ]
+                          )
+                        ),
+                        child: Image.network(
+                          dailyForecast.imageId,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          dailyForecast.getDate(currentDate.day).toString(),
+                          style: textTheme.headlineLarge,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          dailyForecast.getWeekday(currentDate.weekday),
+                          style: textTheme.headlineSmall,
+                        ),
+                        Text(dailyForecast.description),
+                      ],
+                    ),
+                  ),
+                ),
+                Text(
+                  '${dailyForecast.highTemp} | ${dailyForecast.lowTemp} F',
+                  style: textTheme.titleSmall,
+                ),
+              ],
             ),
           );
-        }).toList(),
+        },
+        childCount: 7,
       ),
     );
   }
