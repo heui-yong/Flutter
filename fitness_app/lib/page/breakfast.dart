@@ -21,20 +21,18 @@ class Breakfast extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(),
-      body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              searchBar(),
-              const SizedBox(height: 30,),
-              categoryMethod(category),
-              const SizedBox(height: 30,),
-              dietMethod(diet),
-              const SizedBox(height: 30,),
-              popularMethod(diet)
-            ],
-          ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            searchBar(),
+            const SizedBox(height: 30,),
+            categoryMethod(category),
+            const SizedBox(height: 30,),
+            dietMethod(diet),
+            const SizedBox(height: 30,),
+            popularMethod(diet)
+          ],
         ),
       ),
     );
@@ -366,25 +364,4 @@ class Breakfast extends StatelessWidget {
       ],
     );
   }
-}
-
-class ConstantScrollBehavior extends ScrollBehavior {
-  const ConstantScrollBehavior();
-
-  @override
-  Widget buildScrollbar(
-      BuildContext context, Widget child, ScrollableDetails details) =>
-      child;
-
-  @override
-  Widget buildOverscrollIndicator(
-      BuildContext context, Widget child, ScrollableDetails details) =>
-      child;
-
-  @override
-  TargetPlatform getPlatform(BuildContext context) => TargetPlatform.macOS;
-
-  @override
-  ScrollPhysics getScrollPhysics(BuildContext context) =>
-      const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics());
 }
