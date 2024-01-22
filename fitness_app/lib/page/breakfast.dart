@@ -260,9 +260,9 @@ class _DietWidgetState extends State<DietWidget> {
     }
   }
 
-  void _openDietInfoBottomSheet() {
+  void _openDietInfoBottomSheet(String selectName) {
     showModalBottomSheet(
-        context: context, builder: (context) => DietInfo()
+        context: context, builder: (context) => DietInfo(selectName: selectName,)
     );
   }
 
@@ -349,7 +349,7 @@ class _DietWidgetState extends State<DietWidget> {
                         child: TextButton(
                           onPressed: () {
                             print("click ${widget.diet[index].name}");
-                            _openDietInfoBottomSheet();
+                            _openDietInfoBottomSheet(widget.diet[index].name);
                           },
                           child: ShaderMask(
                             shaderCallback: (Rect bounds) => LinearGradient(

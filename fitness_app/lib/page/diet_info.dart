@@ -2,10 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DietInfo extends StatelessWidget {
-  const DietInfo({super.key});
+  final String selectName;
+
+  const DietInfo({
+    required this.selectName,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print("selectName = $selectName");
     return SingleChildScrollView(
       child: Container(
         width: double.infinity,
