@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import '../model/category_model.dart';
 import '../model/diet_model.dart';
+import 'diet_info.dart';
 
 class Breakfast extends StatelessWidget {
   final CategoryModel categoryModel;
@@ -259,6 +260,12 @@ class _DietWidgetState extends State<DietWidget> {
     }
   }
 
+  void _openDietInfoBottomSheet() {
+    showModalBottomSheet(
+        context: context, builder: (context) => DietInfo()
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -340,7 +347,10 @@ class _DietWidgetState extends State<DietWidget> {
                           borderRadius: BorderRadius.circular(99),
                         ),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            print("click ${widget.diet[index].name}");
+                            _openDietInfoBottomSheet();
+                          },
                           child: ShaderMask(
                             shaderCallback: (Rect bounds) => LinearGradient(
                                 colors: setVewBtnTextColor(index)
