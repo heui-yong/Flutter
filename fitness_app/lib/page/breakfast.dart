@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import '../model/category_model.dart';
 import '../model/diet_model.dart';
 import 'diet_info.dart';
@@ -51,7 +52,6 @@ class Breakfast extends StatelessWidget {
       backgroundColor: Colors.white,
       scrolledUnderElevation: 0,
       elevation: 0.0,
-      toolbarHeight: 72,
       centerTitle: true,
       leadingWidth: 62,
       leading: GestureDetector(
@@ -59,7 +59,7 @@ class Breakfast extends StatelessWidget {
           print("Back Click!");
         },
         child: Container(
-          margin: const EdgeInsets.only(left: 30, top: 20, bottom: 20),
+          margin: const EdgeInsets.only(left: 30, top: 12, bottom: 12),
           alignment: Alignment.center,
           width: 32,
           height: 32,
@@ -260,9 +260,36 @@ class _DietWidgetState extends State<DietWidget> {
     }
   }
 
-  void _openDietInfoBottomSheet(String selectName) {
-    showModalBottomSheet(
-        context: context, builder: (context) => DietInfo(selectName: selectName,)
+  void _openDietInfoBottomSheet(Diet diet) {
+    // showModalBottomSheet(
+    //   context: context,
+    //   builder: (context) => DietInfo(selectName: selectName,),
+    // );
+    Navigator.push(
+        context,
+      PageRouteBuilder(
+        transitionsBuilder:
+            (context, animation, secondaryAnimation, child) {
+          var begin = const Offset(0, 1.0);
+          var end = Offset.zero;
+          var curve = Curves.ease;
+          var tween = Tween(
+            begin: begin,
+            end: end,
+          ).chain(
+            CurveTween(
+              curve: curve,
+            ),
+          );
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
+        },
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            DietInfo(diet: diet),
+        fullscreenDialog: false,
+      ),
     );
   }
 
@@ -349,19 +376,15 @@ class _DietWidgetState extends State<DietWidget> {
                         child: TextButton(
                           onPressed: () {
                             print("click ${widget.diet[index].name}");
-                            _openDietInfoBottomSheet(widget.diet[index].name);
+                            _openDietInfoBottomSheet(widget.diet[index]);
                           },
-                          child: ShaderMask(
-                            shaderCallback: (Rect bounds) => LinearGradient(
-                                colors: setVewBtnTextColor(index)
-                            ).createShader(bounds),
-                            child: const Text(
-                              "View",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                              ),
+                          child: GradientText(
+                            "View",
+                            colors: setVewBtnTextColor(index),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
