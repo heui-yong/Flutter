@@ -1,10 +1,13 @@
+import 'package:fitness_app/util/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:fitness_app/page/diet_info_screen.dart';
 import '../model/category_model.dart';
+import '../model/diet_info_model.dart';
 import '../model/diet_model.dart';
-import 'diet_info.dart';
+import '../util/text_style_util.dart';
 
 class Breakfast extends StatelessWidget {
   final CategoryModel categoryModel;
@@ -109,7 +112,8 @@ class SearchBarWidget extends StatelessWidget {
         BoxShadow(
             color: const Color(0xff1d1617).withOpacity(0.07),
             blurRadius: 40,
-            spreadRadius: 0.0)
+            spreadRadius: 0.0
+        )
       ]),
       child: TextField(
         decoration: InputDecoration(
@@ -166,15 +170,11 @@ class CategoryWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 30, right: 30),
+        Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30),
           child: Text(
             "Category",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyleUtil.getTitleTextStyle()
           ),
         ),
         const SizedBox(
@@ -239,32 +239,8 @@ class DietWidget extends StatefulWidget {
 
 class _DietWidgetState extends State<DietWidget> {
   var _hoverIndex = -1;
-  static const colors = {
-    "0xff9DCEFF": [Color(0xff9DCEFF), Color(0xff92A3FD)],
-    "0xffEEA4CE": [Color(0xffEEA4CE), Color(0xffC58BF2)],
-  };
-
-  setViewBtnColor(int index) {
-    if (_hoverIndex == index) {
-      return colors[widget.diet[index].boxColor] ?? [const Color(0xff9DCEFF), const Color(0xff92A3FD)];
-    } else {
-      return [Colors.transparent, Colors.transparent];
-    }
-  }
-
-  setVewBtnTextColor(int index) {
-    if (_hoverIndex != index) {
-      return colors[widget.diet[index].boxColor] ?? [const Color(0xff9DCEFF), const Color(0xff92A3FD)];
-    } else {
-      return [Colors.white, Colors.white];
-    }
-  }
 
   void _openDietInfoBottomSheet(Diet diet) {
-    // showModalBottomSheet(
-    //   context: context,
-    //   builder: (context) => DietInfo(selectName: selectName,),
-    // );
     Navigator.push(
         context,
       PageRouteBuilder(
@@ -287,7 +263,10 @@ class _DietWidgetState extends State<DietWidget> {
           );
         },
         pageBuilder: (context, animation, secondaryAnimation) =>
-            DietInfo(diet: diet),
+            DietInfoScreen(
+          name: diet.name,
+          dietInfoModel: DietInfoModel(),
+        ),
         fullscreenDialog: false,
       ),
     );
@@ -298,16 +277,12 @@ class _DietWidgetState extends State<DietWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 30, right: 30),
+        Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30),
           child: Text(
             maxLines: 2,
             "Recommendation\nfor Diet",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: TextStyleUtil.getTitleTextStyle(),
           ),
         ),
         const SizedBox(height: 15),
@@ -369,7 +344,9 @@ class _DietWidgetState extends State<DietWidget> {
                         height: 38,
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: setViewBtnColor(index),
+                            colors: _hoverIndex == index ?
+                            ColorUtil.setViewLinearColor(widget.diet[index].boxColor) :
+                            [Colors.transparent, Colors.transparent],
                           ),
                           borderRadius: BorderRadius.circular(99),
                         ),
@@ -380,7 +357,9 @@ class _DietWidgetState extends State<DietWidget> {
                           },
                           child: GradientText(
                             "View",
-                            colors: setVewBtnTextColor(index),
+                            colors: _hoverIndex != index ?
+                            ColorUtil.setViewLinearColor(widget.diet[index].boxColor) :
+                            [Colors.white, Colors.white],
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,
@@ -414,15 +393,11 @@ class PopularWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(left: 30, right: 30),
+        Padding(
+          padding: const EdgeInsets.only(left: 30, right: 30),
           child: Text(
             "Popular",
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: TextStyleUtil.getTitleTextStyle(),
           ),
         ),
         const SizedBox(height: 15),
