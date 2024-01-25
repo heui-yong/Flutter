@@ -23,7 +23,7 @@ class DietInfo{
   List<Nutrition> nutrition;
   String descriptions;
   List<Ingredients> ingredients;
-  List<Step> step;
+  List<StepByStep> step;
 
 
   DietInfo({
@@ -47,8 +47,8 @@ class DietInfo{
     ingredientsList.map<Ingredients>((e) => Ingredients.fromJson(e)).toList();
 
     var stepList = json['step'] as List;
-    List<Step> changeStepList =
-    stepList.map<Step>((e) => Step.fromJson(e)).toList();
+    List<StepByStep> changeStepList =
+    stepList.map<StepByStep>((e) => StepByStep.fromJson(e)).toList();
 
     return DietInfo(
       name: json['name'],
@@ -103,17 +103,17 @@ class Ingredients {
   }
 }
 
-class Step {
+class StepByStep {
   String step;
   String description;
 
-  Step({
+  StepByStep({
     required this.step,
     required this.description
   });
 
-  factory Step.fromJson(Map<String, dynamic> json){
-    return Step(
+  factory StepByStep.fromJson(Map<String, dynamic> json){
+    return StepByStep(
       step: json['step'],
       description: json['description']
     );

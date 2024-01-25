@@ -1,3 +1,5 @@
+import 'package:dotted_line/dotted_line.dart';
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/util/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -31,13 +33,11 @@ class DietInfoScreen extends StatelessWidget {
           ),
           Column(
             children: [
-              TittleWidget(),
+              const TittleWidget(),
               BackGroundWidget(dietInfo: dietInfo),
             ],
           ),
-          DraggableBottomSheet(
-            context: context, dietInfo: dietInfo
-          )
+          BottomSheetWidget(dietInfo: dietInfo)
         ],
       ),
     );
@@ -123,7 +123,7 @@ class BackImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 288,
       height: 263,
       child: SvgPicture.asset(dietInfo.imageUrl),
@@ -148,86 +148,65 @@ class BackCircleWidget extends StatelessWidget {
   }
 }
 
-class DraggableBottomSheet extends StatefulWidget {
-// const DraggableBottomSheet({Key? key, required this.context}) : super(key: key);
-  const DraggableBottomSheet({
+class BottomSheetWidget extends StatefulWidget {
+  const BottomSheetWidget({
     super.key,
-    required this.context,
     required this.dietInfo,
   });
 
-  final BuildContext context;
   final DietInfo dietInfo;
 
   @override
-  State<DraggableBottomSheet> createState() => _DraggableBottomSheetState();
+  State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
 }
 
-class _DraggableBottomSheetState extends State<DraggableBottomSheet> {
-
-  double screenHeight = 0;
-  double viewHeight = 0;
-
+class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   @override
-  void initState() {
-    super.initState();
-    screenHeight = MediaQuery.of(widget.context).size.height;
-    print("$screenHeight");
-    viewHeight = screenHeight * 0.5; // Provide your initial value here;
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.5,
+      minChildSize: 0.5,
+      maxChildSize: 1.0,
+      builder: (context, myScroolController) {
+        return ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
+          child: Container(
+            width: double.infinity,
+            color: Colors.white,
+            child: SingleChildScrollView(
+              controller: myScroolController,
+              child: Column(
+                children: [
+                  const SwapWidget(),
+                  NameWidget(dietInfo: widget.dietInfo),
+                  NutritionWidget(dietInfo: widget.dietInfo),
+                  DescriptionWidget(descriptions: widget.dietInfo.descriptions),
+                  IngredientWidget(ingredients: widget.dietInfo.ingredients),
+                  StepByStepWidget(step: widget.dietInfo.step)
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
+}
+
+class SwapWidget extends StatelessWidget {
+  const SwapWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: SingleChildScrollView(
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
-            ),
-          ),
-          height: viewHeight,
-          width: double.infinity,
-          child: GestureDetector(
-            onVerticalDragStart: (details) {
-              // print("$details");
-            },
-            onVerticalDragUpdate: (details) {
-              setState(() {
-                viewHeight = (screenHeight - details.globalPosition.dy)
-                    .clamp(30.0, screenHeight *0.9);
-                print("${viewHeight}");
-              });
-            },
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  width: 50,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: Color(0xff1D1617).withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(50)
-                  ),
-                ),
-                NameWidget(widget: widget),
-                NutritionWidget(widget: widget),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30, top: 25, right: 30),
-                  child: Column(
-                    children: [
-                      Text(widget.dietInfo.descriptions),
-                      Text(widget.dietInfo.descriptions)
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      width: 50,
+      height: 5,
+      decoration: BoxDecoration(
+          color: const Color(0xff1D1617).withOpacity(0.1),
+          borderRadius: BorderRadius.circular(50)
       ),
     );
   }
@@ -236,10 +215,10 @@ class _DraggableBottomSheetState extends State<DraggableBottomSheet> {
 class NameWidget extends StatelessWidget {
   const NameWidget({
     super.key,
-    required this.widget,
+    required this.dietInfo,
   });
 
-  final DraggableBottomSheet widget;
+  final DietInfo dietInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -251,11 +230,11 @@ class NameWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                widget.dietInfo.name,
-                style: TextStyleUtil.getTitleTextStyle()
+              Text(dietInfo.name,
+                  style: TextStyleUtil.getTitleTextStyle()),
+              const SizedBox(
+                height: 5,
               ),
-              const SizedBox(height: 5,),
               Row(
                 children: [
                   const Text(
@@ -267,12 +246,11 @@ class NameWidget extends StatelessWidget {
                     ),
                   ),
                   GradientText(
-                    widget.dietInfo.writer,
-                    colors: ColorUtil.setViewLinearColor(widget.dietInfo.boxColor),
+                    dietInfo.writer,
+                    colors:
+                        ColorUtil.setViewLinearColor(dietInfo.boxColor),
                     style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12
-                    ),
+                        fontWeight: FontWeight.w400, fontSize: 12),
                   )
                 ],
               ),
@@ -299,10 +277,10 @@ class NameWidget extends StatelessWidget {
 class NutritionWidget extends StatelessWidget {
   const NutritionWidget({
     super.key,
-    required this.widget,
+    required this.dietInfo,
   });
 
-  final DraggableBottomSheet widget;
+  final DietInfo dietInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -311,11 +289,10 @@ class NutritionWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-              "Nutrition",
-              style: TextStyleUtil.getTitleTextStyle()
+          Text("Nutrition", style: TextStyleUtil.getTitleTextStyle()),
+          const SizedBox(
+            height: 15,
           ),
-          const SizedBox(height: 5,),
           SizedBox(
             height: 38,
             child: ListView.separated(
@@ -324,18 +301,22 @@ class NutritionWidget extends StatelessWidget {
                 return Container(
                   height: 38,
                   decoration: BoxDecoration(
-                    color: Color(int.parse(widget.dietInfo.boxColor)).withOpacity(0.3),
+                    color: Color(int.parse(dietInfo.boxColor))
+                        .withOpacity(0.3),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        SvgPicture.asset(widget.dietInfo.nutrition[index].imageUrl),
-                        const SizedBox(width: 5,),
+                        SvgPicture.asset(
+                            dietInfo.nutrition[index].imageUrl),
+                        const SizedBox(
+                          width: 5,
+                        ),
                         Text(
-                          widget.dietInfo.nutrition[index].content,
-                          style: TextStyle(
+                          dietInfo.nutrition[index].content,
+                          style: const TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 10,
                             color: Colors.black,
@@ -349,8 +330,269 @@ class NutritionWidget extends StatelessWidget {
               separatorBuilder: (context, index) => const SizedBox(
                 width: 15,
               ),
-              itemCount: widget.dietInfo.nutrition.length,
+              itemCount: dietInfo.nutrition.length,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class DescriptionWidget extends StatelessWidget {
+  const DescriptionWidget({
+    super.key,
+    required this.descriptions,
+  });
+
+  final String descriptions;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30, top: 25, right: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Descriptions",
+            style: TextStyleUtil.getTitleTextStyle(),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Text(
+            descriptions,
+            style: const TextStyle(
+              color: Color(0xff7B6F72),
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class IngredientWidget extends StatelessWidget {
+  const IngredientWidget({
+    super.key,
+    required this.ingredients,
+  });
+
+  final List<Ingredients> ingredients;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30, top: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Ingredients That You\nWill Need",
+                  style: TextStyleUtil.getTitleTextStyle(),
+                  softWrap: true,
+                ),
+                Text(
+                  "${ingredients.length} items",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xff7B6F72),
+                  ),
+                )
+              ],
+            ),
+          ),
+          const SizedBox(height: 15,),
+          SizedBox(
+            height: 125,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 80,
+                      height: 80,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          color: const Color(0xffF7F8F8)
+                      ),
+                      child: SvgPicture.asset(
+                        ingredients[index].imageUrl,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    const SizedBox(height: 5,),
+                    Text(
+                      ingredients[index].name,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                      ),
+                    ),
+                    Text(
+                      ingredients[index].mensuration,
+                      style: const TextStyle(
+                        color: Color(0xff7B6F72),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 10,
+                      ),
+                    )
+                  ],
+                );
+              },
+              separatorBuilder: (context, index) => const SizedBox(
+                width: 15,
+              ),
+              itemCount: ingredients.length,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+class StepByStepWidget extends StatefulWidget {
+  const StepByStepWidget({
+    super.key,
+    required this.step,
+  });
+
+  final List<StepByStep> step;
+
+  @override
+  State<StepByStepWidget> createState() => _StepByStepWidgetState();
+}
+
+class _StepByStepWidgetState extends State<StepByStepWidget> {
+  var _stepIndex = -1;
+
+  _setStepGradientColor(int index) {
+    if (index <= _stepIndex) {
+      return  AppColor.purpleLinear;
+    } else {
+      return AppColor.greyLinear;
+    }
+  }
+
+  _setStepBtnImage(int index) {
+    if (index <= _stepIndex) {
+      return  "assets/icons/stepBtn.svg";
+    } else {
+      return "assets/icons/stepBtnDis.svg";
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30, top: 25, right: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Step by Step",
+                style: TextStyleUtil.getTitleTextStyle(),
+                softWrap: true,
+              ),
+              Text(
+                "${widget.step.length} items",
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xff7B6F72),
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 15,),
+          ListView.separated(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            separatorBuilder: (context, index) => const SizedBox(
+              height: 5,
+            ),
+            itemCount: widget.step.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    print("$index click!" );
+                    _stepIndex = index;
+                  });
+                },
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      child: GradientText(
+                        "0${index+1}",
+                        colors: _setStepGradientColor(index),
+                      ),
+                      width: 20,
+                    ),
+                    SizedBox(width: 13,),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SvgPicture.asset(
+                          _setStepBtnImage(index),
+                          height: 20,
+                          width: 20,
+                        ),
+                        DottedLine(
+                          direction: Axis.vertical,
+                          alignment: WrapAlignment.center,
+                          lineLength: 44,
+                          dashGradient: _setStepGradientColor(index),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 15,),
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.step[index].step,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          SizedBox(height: 5,),
+                          Text(
+                            widget.step[index].description,
+                            style: TextStyle(
+                              color: Color(0xff7B6F72),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
