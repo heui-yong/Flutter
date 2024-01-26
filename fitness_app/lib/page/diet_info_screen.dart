@@ -3,6 +3,7 @@ import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/util/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:readmore/readmore.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import '../model/diet_info_model.dart';
 import '../util/text_style_util.dart';
@@ -20,9 +21,11 @@ class DietInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dietInfo = dietInfoModel.getDietInfo(name);
+    DraggableScrollableController myScrollController =
+        DraggableScrollableController();
 
-    return Material(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
@@ -37,7 +40,10 @@ class DietInfoScreen extends StatelessWidget {
               BackGroundWidget(dietInfo: dietInfo),
             ],
           ),
-          BottomSheetWidget(dietInfo: dietInfo)
+          BottomSheetWidget(
+            dietInfo: dietInfo,
+            myScrollController: myScrollController,
+          ),
         ],
       ),
     );
@@ -149,12 +155,11 @@ class BackCircleWidget extends StatelessWidget {
 }
 
 class BottomSheetWidget extends StatefulWidget {
-  const BottomSheetWidget({
-    super.key,
-    required this.dietInfo,
-  });
+  const BottomSheetWidget(
+      {super.key, required this.dietInfo, required this.myScrollController});
 
   final DietInfo dietInfo;
+  final DraggableScrollableController myScrollController;
 
   @override
   State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
@@ -162,19 +167,34 @@ class BottomSheetWidget extends StatefulWidget {
 
 class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   @override
+  void initState() {
+    widget.myScrollController.addListener(() {
+      print("size : ${widget.myScrollController.size}");
+      // if (widget.myScrollController.size < 0.1) {
+      //   Navigator.pop(context);
+      // }
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       initialChildSize: 0.5,
-      minChildSize: 0.5,
+      minChildSize: 0,
       maxChildSize: 1.0,
-      builder: (context, myScroolController) {
+
+      controller: widget.myScrollController,
+      builder: (context, myScrollController) {
         return ClipRRect(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(40)),
           child: Container(
             width: double.infinity,
             color: Colors.white,
             child: SingleChildScrollView(
-              controller: myScroolController,
+              controller: myScrollController,
+              physics: const ClampingScrollPhysics(),
               child: Column(
                 children: [
                   const SwapWidget(),
@@ -206,8 +226,7 @@ class SwapWidget extends StatelessWidget {
       height: 5,
       decoration: BoxDecoration(
           color: const Color(0xff1D1617).withOpacity(0.1),
-          borderRadius: BorderRadius.circular(50)
-      ),
+          borderRadius: BorderRadius.circular(50)),
     );
   }
 }
@@ -230,8 +249,7 @@ class NameWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(dietInfo.name,
-                  style: TextStyleUtil.getTitleTextStyle()),
+              Text(dietInfo.name, style: TextStyleUtil.getTitleTextStyle()),
               const SizedBox(
                 height: 5,
               ),
@@ -247,8 +265,7 @@ class NameWidget extends StatelessWidget {
                   ),
                   GradientText(
                     dietInfo.writer,
-                    colors:
-                        ColorUtil.setViewLinearColor(dietInfo.boxColor),
+                    colors: ColorUtil.setViewLinearColor(dietInfo.boxColor),
                     style: const TextStyle(
                         fontWeight: FontWeight.w400, fontSize: 12),
                   )
@@ -301,16 +318,14 @@ class NutritionWidget extends StatelessWidget {
                 return Container(
                   height: 38,
                   decoration: BoxDecoration(
-                    color: Color(int.parse(dietInfo.boxColor))
-                        .withOpacity(0.3),
+                    color: Color(int.parse(dietInfo.boxColor)).withOpacity(0.3),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
                       children: [
-                        SvgPicture.asset(
-                            dietInfo.nutrition[index].imageUrl),
+                        SvgPicture.asset(dietInfo.nutrition[index].imageUrl),
                         const SizedBox(
                           width: 5,
                         ),
@@ -361,14 +376,47 @@ class DescriptionWidget extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          Text(
+          ReadMoreText(
             descriptions,
-            style: const TextStyle(
-              color: Color(0xff7B6F72),
-              fontSize: 12,
+            trimLines: 4,
+            textAlign: TextAlign.start,
+            trimMode: TrimMode.Line,
+            trimCollapsedText: "Read More",
+            trimExpandedText: "Less",
+            lessStyle: TextStyle(
+              color: Colors.amber,
               fontWeight: FontWeight.w400,
             ),
+            moreStyle: TextStyle(
+              color: Colors.amber,
+              fontWeight: FontWeight.w400,
+            ),
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: Color(0xff7B6F72),
+            ),
           )
+          // Text.rich(
+          //   TextSpan(
+          //     text: descriptions,
+          //     style: TextStyle(
+          //       fontSize: 12,
+          //       fontWeight: FontWeight.w400,
+          //       color: Color(0xff7B6F72)
+          //     ),
+          //     children: [
+          //       WidgetSpan(
+          //         child: Container(
+          //           child: GestureDetector(
+          //             onTap: () => print("Read more..."),
+          //             child: Text("Read more..."),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
@@ -411,11 +459,14 @@ class IngredientWidget extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 15,),
+          const SizedBox(
+            height: 15,
+          ),
           SizedBox(
             height: 125,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -425,14 +476,15 @@ class IngredientWidget extends StatelessWidget {
                       height: 80,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(12),
-                          color: const Color(0xffF7F8F8)
-                      ),
+                          color: const Color(0xffF7F8F8)),
                       child: SvgPicture.asset(
                         ingredients[index].imageUrl,
                         fit: BoxFit.scaleDown,
                       ),
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       ingredients[index].name,
                       style: const TextStyle(
@@ -464,7 +516,6 @@ class IngredientWidget extends StatelessWidget {
   }
 }
 
-
 class StepByStepWidget extends StatefulWidget {
   const StepByStepWidget({
     super.key,
@@ -482,7 +533,7 @@ class _StepByStepWidgetState extends State<StepByStepWidget> {
 
   _setStepGradientColor(int index) {
     if (index <= _stepIndex) {
-      return  AppColor.purpleLinear;
+      return AppColor.purpleLinear;
     } else {
       return AppColor.greyLinear;
     }
@@ -490,7 +541,7 @@ class _StepByStepWidgetState extends State<StepByStepWidget> {
 
   _setStepBtnImage(int index) {
     if (index <= _stepIndex) {
-      return  "assets/icons/stepBtn.svg";
+      return "assets/icons/stepBtn.svg";
     } else {
       return "assets/icons/stepBtnDis.svg";
     }
@@ -521,10 +572,12 @@ class _StepByStepWidgetState extends State<StepByStepWidget> {
               )
             ],
           ),
-          const SizedBox(height: 15,),
+          const SizedBox(
+            height: 15,
+          ),
           ListView.separated(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(
               height: 5,
             ),
@@ -533,7 +586,6 @@ class _StepByStepWidgetState extends State<StepByStepWidget> {
               return GestureDetector(
                 onTap: () {
                   setState(() {
-                    print("$index click!" );
                     _stepIndex = index;
                   });
                 },
@@ -541,13 +593,15 @@ class _StepByStepWidgetState extends State<StepByStepWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
+                      width: 20,
                       child: GradientText(
-                        "0${index+1}",
+                        "0${index + 1}",
                         colors: _setStepGradientColor(index),
                       ),
-                      width: 20,
                     ),
-                    SizedBox(width: 13,),
+                    const SizedBox(
+                      width: 13,
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -564,27 +618,29 @@ class _StepByStepWidgetState extends State<StepByStepWidget> {
                         ),
                       ],
                     ),
-                    SizedBox(width: 15,),
+                    const SizedBox(
+                      width: 15,
+                    ),
                     Flexible(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             widget.step[index].step,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400
-                            ),
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400),
                           ),
-                          SizedBox(height: 5,),
+                          const SizedBox(
+                            height: 5,
+                          ),
                           Text(
                             widget.step[index].description,
-                            style: TextStyle(
-                              color: Color(0xff7B6F72),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400
-                            ),
+                            style: const TextStyle(
+                                color: Color(0xff7B6F72),
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400),
                           ),
                         ],
                       ),

@@ -360,7 +360,7 @@ class _DietWidgetState extends State<DietWidget> {
                             colors: _hoverIndex != index ?
                             ColorUtil.setViewLinearColor(widget.diet[index].boxColor) :
                             [Colors.white, Colors.white],
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -403,6 +403,7 @@ class PopularWidget extends StatelessWidget {
         const SizedBox(height: 15),
         ListView.separated(
           shrinkWrap: true,
+          physics: const ClampingScrollPhysics(),
           padding: const EdgeInsets.only(left: 30, right: 30),
           itemBuilder: (context, index) {
             return Container(
