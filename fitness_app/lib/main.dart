@@ -1,4 +1,5 @@
-import 'package:fitness_app/page/breakfast.dart';
+import 'package:fitness_app/page/meal_tracker/breakfast_screen.dart';
+import 'package:fitness_app/page/on_boarding/fitnest_x_start.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness_app/model/category_model.dart';
 import '../model/diet_model.dart';
@@ -14,7 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Breakfast(
+      home:
+      // FitNestXStart()
+      Breakfast(
         categoryModel: CategoryModel(),
         dietModel: DietModel(),
       ),
