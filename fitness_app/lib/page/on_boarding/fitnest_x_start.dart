@@ -40,7 +40,7 @@ class _FitNestXStartState extends State<FitNestXStart> {
                     text: "Fitnest",
                     style: const TextStyle(
                       color: AppColor.black,
-                      fontSize: 50,
+                      fontSize: 36,
                       fontWeight: FontWeight.w700,
                     ),
                     children: <TextSpan>[

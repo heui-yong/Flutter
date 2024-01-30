@@ -1,3 +1,4 @@
+import 'package:fitness_app/constants/colors.dart';
 import 'package:fitness_app/util/color_util.dart';
 import 'package:flutter/material.dart';
 import '../../model/diet_info_model.dart';
@@ -22,6 +23,11 @@ class DietInfoScreen extends StatelessWidget {
         DraggableScrollableController();
 
     return Scaffold(
+      floatingActionButton: CustomFab(
+        myScrollController: myScrollController,
+        boxColor: dietInfo.boxColor,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: Stack(
         children: [
           Container(
@@ -42,6 +48,77 @@ class DietInfoScreen extends StatelessWidget {
             myScrollController: myScrollController,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomFab extends StatefulWidget {
+  const CustomFab({
+    super.key, required this.myScrollController, required this.boxColor,
+  });
+
+  final DraggableScrollableController myScrollController;
+  final String boxColor;
+
+  @override
+  State<CustomFab> createState() => _CustomFabState();
+}
+
+class _CustomFabState extends State<CustomFab> {
+  var isVisible = true;
+
+  @override
+  void initState() {
+    widget.myScrollController.addListener(() {
+      if (widget.myScrollController.size > 0.5) {
+        setState(() {
+          isVisible = false;
+        });
+      } else {
+        setState(() {
+          isVisible = true;
+        });
+      }
+    });
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: 60,
+        child: Visibility(
+          visible: isVisible,
+          child: FloatingActionButton(
+            onPressed: () {  },
+            elevation: 0.0,
+            backgroundColor: AppColor.transparent,
+            child: Container(
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              height: 60,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: ColorUtil.setViewLinearColor(widget.boxColor)
+                ),
+                borderRadius: BorderRadius.circular(99),
+              ),
+              child: const Text(
+                  "Add to Breakfast Meal",
+                style: TextStyle(
+                  color: AppColor.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
