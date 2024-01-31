@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../constants/colors.dart';
+import '../model/category_model.dart';
+import '../model/diet_model.dart';
+import '../page/meal_tracker/breakfast_screen.dart';
 
 class GoalInfoBtnWidget extends StatelessWidget {
   const GoalInfoBtnWidget({
@@ -10,6 +11,7 @@ class GoalInfoBtnWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Container(
@@ -22,7 +24,8 @@ class GoalInfoBtnWidget extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            print("select!");
+            Navigator.push(context, MaterialPageRoute(
+                builder: (context) => Breakfast(categoryModel: CategoryModel(), dietModel: DietModel())));
           },
           child: const Padding(
             padding: EdgeInsets.only(bottom: 18, top: 18),
