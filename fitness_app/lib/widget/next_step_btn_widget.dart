@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants/colors.dart';
-import '../model/category_model.dart';
-import '../model/diet_model.dart';
 import '../model/on_boarding_model.dart';
-import '../page/meal_tracker/breakfast_screen.dart';
-<<<<<<< HEAD
 import '../page/sign_up_and_login/goal_info_screen.dart';
-=======
->>>>>>> origin/main
 
 class NextStepBtnWidget extends StatefulWidget {
   const NextStepBtnWidget({
@@ -27,19 +21,7 @@ class _NextStepBtnWidgetState extends State<NextStepBtnWidget> {
 
   void _moveBreakfastScreen() {
     Navigator.push(context, MaterialPageRoute(
-<<<<<<< HEAD
-        builder: (context) => GoalInfoScreen()
-        //     Breakfast(
-        //   categoryModel: CategoryModel(),
-        //   dietModel: DietModel(),
-        // )
-=======
-        builder: (context) => Breakfast(
-          categoryModel: CategoryModel(),
-          dietModel: DietModel(),
-        )
->>>>>>> origin/main
-    ));
+        builder: (context) => const GoalInfoScreen()));
   }
 
   @override
