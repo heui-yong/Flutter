@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../constants/colors.dart';
 import '../model/on_boarding_model.dart';
 import '../page/sign_up_and_login/goal_info_screen.dart';
+import '../page/sign_up_and_login/sign_up_screen.dart';
 
 class NextStepBtnWidget extends StatefulWidget {
   const NextStepBtnWidget({
@@ -21,7 +22,7 @@ class _NextStepBtnWidgetState extends State<NextStepBtnWidget> {
 
   void _moveBreakfastScreen() {
     Navigator.push(context, MaterialPageRoute(
-        builder: (context) => const GoalInfoScreen()));
+        builder: (context) => const SignUpScreen()));
   }
 
   @override
