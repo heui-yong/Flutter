@@ -43,6 +43,7 @@ class AppStateScope extends InheritedWidget {
 
   @override
   bool updateShouldNotify(AppStateScope oldWidget) {
+    print("data != oldWidget.data = ${data != oldWidget.data}");
     return data != oldWidget.data;
   }
 }
@@ -76,6 +77,7 @@ class AppStateWidgetState extends State<AppStateWidget> {
   }
 
   void addToCart(String id) {
+    print("addToCart");
     if (!_data.itemsInCart.contains(id)) {
       final Set<String> newItemsInCart = Set<String>.from(_data.itemsInCart);
       newItemsInCart.add(id);
@@ -189,6 +191,7 @@ class ShoppingCartIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Set<String> itemsInCart = AppStateScope.of(context).itemsInCart;
+    print("itemsInCart = $itemsInCart");
     final bool hasPurchase = itemsInCart.isNotEmpty;
     return Stack(
       alignment: Alignment.center,
@@ -225,6 +228,7 @@ class ProductListWidget extends StatelessWidget {
   const ProductListWidget({super.key});
 
   void _handleAddToCart(String id, BuildContext context) {
+    print("_handleAddToCart");
     AppStateWidget.of(context).addToCart(id);
   }
 

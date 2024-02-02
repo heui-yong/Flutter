@@ -1,7 +1,9 @@
 import 'package:fitness_app/widget/title_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import '../../constants/colors.dart';
+import '../../widget/goal_info_btn_widget.dart';
 
 class SignUpInheritedWidget extends InheritedWidget{
   SignUpInheritedWidget({super.key, required super.child});
@@ -50,7 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 40,),
-                  Text(
+                  const Text(
                     "Hey there,",
                     style: TextStyle(
                       color: AppColor.black,
@@ -69,13 +71,110 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 15,),
                   SignUpTextFieldWidget(hintText: "Password", imageUrl: "assets/icons/lock.svg", controller: pwController, isPassword: true,),
                   const SizedBox(height: 10,),
-                  SignUpCheckBoxWidget()
+                  SignUpCheckBoxWidget(),
+                  const SizedBox(height: 130,),
+                  BlueLinearBtnWidget(btnText: 'Register',),
+                  const SizedBox(height: 30,),
+                  OrDividerWidget(),
+                  const SizedBox(height: 20,),
+                  OtherSignUpWidget(),
+                  const SizedBox(height: 30,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Already have an account? ",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                          color: AppColor.black,
+                        ),
+                      ),
+                      GestureDetector(
+                        child: GradientText(
+                          "Login",
+                          colors: AppColor.purpleLinear,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                  ],
+                  )
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class OtherSignUpWidget extends StatelessWidget {
+  const OtherSignUpWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: AppColor.gray_3)
+          ),
+          child: SvgPicture.asset("assets/icons/google-logo.svg",fit: BoxFit.scaleDown,),
+        ),
+        const SizedBox(width: 30,),
+        Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: AppColor.gray_3)
+          ),
+          child: SvgPicture.asset("assets/icons/facebook_logo.svg",fit: BoxFit.scaleDown,),
+        ),
+      ],
+    );
+  }
+}
+
+class OrDividerWidget extends StatelessWidget {
+  const OrDividerWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(width: 141,
+            child: Divider(color: AppColor.gray_3, thickness: 2)
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            "Or",
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: AppColor.black
+            ),
+          ),
+        ),
+        const SizedBox(width: 141,
+            child: Divider(color: AppColor.gray_3, thickness: 2)
+        ),
+      ],
     );
   }
 }

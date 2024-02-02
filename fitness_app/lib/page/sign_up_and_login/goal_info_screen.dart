@@ -50,7 +50,7 @@ class _GoalInfoScreenState extends State<GoalInfoScreen> {
               ),
             ),
             const SizedBox(height: 73,),
-            const GoalInfoBtnWidget(),
+            const BlueLinearBtnWidget(btnText: 'Confirm',),
             const SizedBox(height: 30,)
           ],
         ),

@@ -3,14 +3,29 @@ import '../constants/colors.dart';
 import '../model/category_model.dart';
 import '../model/diet_model.dart';
 import '../page/meal_tracker/breakfast_screen.dart';
+import '../page/sign_up_and_login/goal_info_screen.dart';
 
-class GoalInfoBtnWidget extends StatelessWidget {
-  const GoalInfoBtnWidget({
-    super.key,
+class BlueLinearBtnWidget extends StatelessWidget {
+  const BlueLinearBtnWidget({
+    super.key, required this.btnText,
   });
+
+  final String btnText;
 
   @override
   Widget build(BuildContext context) {
+
+    void moveToPage() {
+      Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) {
+        var page = switch(btnText) {
+          "Register" => GoalInfoScreen(),
+          "Confirm" => Breakfast(dietModel: DietModel(),categoryModel: CategoryModel(),),
+          _ => GoalInfoScreen(),
+        };
+
+        return page;
+      }));
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -24,8 +39,7 @@ class GoalInfoBtnWidget extends StatelessWidget {
         ),
         child: TextButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(
-                builder: (context) => Breakfast(categoryModel: CategoryModel(), dietModel: DietModel())));
+            moveToPage();
           },
           child: const Padding(
             padding: EdgeInsets.only(bottom: 18, top: 18),
