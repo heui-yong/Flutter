@@ -1,66 +1,70 @@
 {
-  "near" : [
-    {
-      "name": "Mason York",
-      "distance": "7 km",
-      "cost": "$3",
-      "imageUrl": ""
-    },
-    {
-      "name": "Mark Greene",
-      "distance": "14 km",
-      "cost": "$5",
-      "imageUrl": ""
-    },
-    {
-      "name": "Mark treene",
-      "distance": "2 km",
-      "cost": "$5",
-      "imageUrl": ""
-    },
-    {
-      "name": "Trina kain",
-      "distance": "4 km",
-      "cost": "$3",
-      "imageUrl": ""
-    },
-    {
-      "name": "HeuiYong Lee",
-      "distance": "985 km",
-      "cost": "$74",
-      "imageUrl": ""
-    }
-  ],
-  "suggested" : [
-    {
-      "name": "Mark treene",
-      "distance": "2 km",
-      "cost": "$5",
-      "imageUrl": ""
-    },
-    {
-      "name": "Trina kain",
-      "distance": "4 km",
-      "cost": "$3",
-      "imageUrl": ""
-    },
-    {
-      "name": "HeuiYong Lee",
-      "distance": "985 km",
-      "cost": "$74",
-      "imageUrl": ""
-    },
-    {
-      "name": "Mason York",
-      "distance": "7 km",
-      "cost": "$3",
-      "imageUrl": ""
-    },
-    {
-      "name": "Mark Greene",
-      "distance": "14 km",
-      "cost": "$5",
-      "imageUrl": ""
-    }
+  "homeInfo":[
+     {
+        "near":[
+           {
+              "name":"Mason York",
+              "distance":"7 km",
+              "cost":"$3",
+              "imageUrl":""
+           },
+           {
+              "name":"Mark Greene",
+              "distance":"14 km",
+              "cost":"$5",
+              "imageUrl":""
+           },
+           {
+              "name":"Mark treene",
+              "distance":"2 km",
+              "cost":"$5",
+              "imageUrl":""
+           },
+           {
+              "name":"Trina kain",
+              "distance":"4 km",
+              "cost":"$3",
+              "imageUrl":""
+           },
+           {
+              "name":"HeuiYong Lee",
+              "distance":"985 km",
+              "cost":"$74",
+              "imageUrl":""
+           }
+        ],
+        "suggested":[
+           {
+              "name":"Mark treene",
+              "distance":"2 km",
+              "cost":"$5",
+              "imageUrl":""
+           },
+           {
+              "name":"Trina kain",
+              "distance":"4 km",
+              "cost":"$3",
+              "imageUrl":""
+           },
+           {
+              "name":"HeuiYong Lee",
+              "distance":"985 km",
+              "cost":"$74",
+              "imageUrl":""
+           },
+           {
+              "name":"Mason York",
+              "distance":"7 km",
+              "cost":"$3",
+              "imageUrl":""
+           },
+           {
+              "name":"Mark Greene",
+              "distance":"14 km",
+              "cost":"$5",
+              "imageUrl":""
+           }
+        ]
+     }
   ]
 }
