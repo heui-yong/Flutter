@@ -2,6 +2,7 @@ import 'package:dog_walking_app/constants/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../widget/orange_btn_widget.dart';
+import '../../widget/title_text_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -18,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -27,17 +28,8 @@ class SignUpScreen extends StatelessWidget {
                   icon: const Icon(Icons.arrow_back, size: 28, color: AppColor.black),
                   alignment: Alignment.centerLeft,
                 ),
-                SizedBox(height: 22,),
-                const Text(
-                  "Let’s  start here",
-                  style: TextStyle(
-                    color: AppColor.black,
-                    fontSize: 34,
-                    fontFamily: "Poppins",
-                    fontWeight: FontWeight.w700,
-                    letterSpacing: -0.41,
-                  ),
-                ),
+                const SizedBox(height: 22,),
+                const TitleTextWidget(title: "Let’s  start here",),
                 const Text(
                   "Fill in your details to begin",
                   style: TextStyle(

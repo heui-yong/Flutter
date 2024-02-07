@@ -15,6 +15,8 @@ class AppColor {
   static const facebookBtn = Color(0xff3B5998);
   static const pwIcon = Color(0xFFAEAEB2);
   static const googleBorder = Color(0xffB0B0B0);
+  static const searchBarBg = Color(0xffF0F0F0);
+  static const searchBarText = Color(0xffA1A1A1);
 
 
 
