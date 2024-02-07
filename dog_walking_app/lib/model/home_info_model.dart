@@ -1,42 +1,29 @@
 import 'package:dog_walking_app/services/api_service.dart';
 
 class HomeInfoModel {
-  final Future<List<HomeInfo>> homeInfoList;
+  final Future<List<HomeInfo>> _homeInfoList;
 
-  HomeInfoModel() : homeInfoList = ApiService().fetchHomeInfo();
+  List<HomeInfo>? _cachedHomeInfo;
+
+  HomeInfoModel() : _homeInfoList = ApiService().fetchHomeInfo();
+
+  Future<List<HomeInfo>> get homeInfoList async {
+    _cachedHomeInfo ??= await _homeInfoList;
+    return _cachedHomeInfo!;
+  }
 
   Future<List<UserInfo>> getNearList() async {
-    try {
-      List<HomeInfo> homeInfo = await homeInfoList;
-      List<UserInfo> nearList = homeInfo.first.nearList;
-      return nearList;
-    } catch (e) {
-      throw Exception('Failed to load data: $e');
-    }
+    return (await homeInfoList).first.nearList;
   }
 
   Future<List<UserInfo>> getSuggestedList() async {
-    try {
-      List<HomeInfo> homeInfo = await homeInfoList;
-      List<UserInfo> suggestedList = homeInfo.first.suggestedList;
-      return suggestedList;
-    } catch (e) {
-      throw Exception('Failed to load data: $e');
-    }
+    return (await homeInfoList).first.suggestedList;
   }
 
   Future<List<UserInfo>> getTopList() async {
-    try {
-      List<HomeInfo> homeInfo = await homeInfoList;
-      List<UserInfo> topList = homeInfo.first.topList;
-      return topList;
-    } catch (e) {
-      throw Exception('Failed to load data: $e');
-    }
+    return (await homeInfoList).first.topList;
   }
 }
-
-
 
 class HomeInfo {
   List<UserInfo> nearList;

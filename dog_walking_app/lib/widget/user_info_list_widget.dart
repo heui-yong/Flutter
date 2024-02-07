@@ -28,7 +28,7 @@ class _UserInfoListWidgetState extends State<UserInfoListWidget> {
     userList = switch (widget.userInfoType) {
       "Near you" => widget.homeInfoModel.getNearList(),
       "Suggested" => widget.homeInfoModel.getSuggestedList(),
-      "Top walkers" => widget.homeInfoModel.getSuggestedList(),
+      "Top walkers" => widget.homeInfoModel.getTopList(),
       _ => widget.homeInfoModel.getNearList(),
     };
   }

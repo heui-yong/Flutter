@@ -20,7 +20,7 @@ class UserInfoListItemWidget extends StatelessWidget {
             child: Stack(
               children: [
                 Image(
-                  image: AssetImage("assets/images/home_1.png"),
+                  image: AssetImage(userInfo.imageUrl),
                   width: 180,
                   height: 125,
                 ),

@@ -18,20 +18,22 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 40, left: 16),
-          child: Column(
-            children: [
-              HomeWidget(size: size),
-              const SizedBox(height: 22,),
-              const SearchBarWidget(),
-              const SizedBox(height: 22,),
-              UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Near you"),
-              DividerWidget(size: size),
-              UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Suggested"),
-              DividerWidget(size: size),
-              UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Top walkers"),
-            ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 40, left: 16),
+            child: Column(
+              children: [
+                HomeWidget(size: size),
+                const SizedBox(height: 22,),
+                const SearchBarWidget(),
+                const SizedBox(height: 22,),
+                UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Near you"),
+                DividerWidget(size: size),
+                UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Suggested"),
+                DividerWidget(size: size),
+                UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Top walkers"),
+              ],
+            ),
           ),
         ),
       )
@@ -194,7 +196,7 @@ class UserInfoWidget extends StatelessWidget {
             ],
           ),
         ),
-        UserInfoListWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Near you"),
+        UserInfoListWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: userInfoType),
       ],
     );
   }
