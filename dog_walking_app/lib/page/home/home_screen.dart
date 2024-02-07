@@ -1,31 +1,18 @@
 import 'package:dog_walking_app/constants/app_color.dart';
 import 'package:dog_walking_app/model/home_info_model.dart';
-import 'package:dog_walking_app/services/api_service.dart';
+import 'package:dog_walking_app/widget/divider_widget.dart';
 import 'package:dog_walking_app/widget/title_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../../widget/user_info_list_widget.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<UserInfo>>nearList;
-  var homeInfoModel = HomeInfoModel();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    nearList = homeInfoModel.getNearList();
-  }
-
-
-  @override
   Widget build(BuildContext context) {
+    var homeInfoModel = HomeInfoModel();
+
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -39,86 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 22,),
               const SearchBarWidget(),
               const SizedBox(height: 22,),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16, bottom: 9.5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TitleTextWidget(title: "Near you"),
-                        TextButton(
-                          onPressed: (){},
-                          child: Text(
-                            "View all",
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: AppColor.black,
-                              fontFamily: "Poppins",
-                              fontSize: 15,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: -0.41,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  FutureBuilder<List<UserInfo>>(
-                    future: nearList,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return SizedBox(
-                          height: 180,
-                          width: size.width,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: snapshot.data!.length,
-                            separatorBuilder: (context, index) => const SizedBox(
-                              width: 43,
-                            ),
-                            itemBuilder: (context, index) {
-                              return Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(14),
-                                    child: Stack(
-                                      children: [
-                                        Image(image: AssetImage("assets/images/home_1.png"),),
-                                        Positioned(
-                                          child: Container(
-                                            width: 49,
-                                            height: 25,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(6),
-                                                color: AppColor.scopeBg.withOpacity(0.2)
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                Icon(Icons.star_purple500_sharp, color: AppColor.scopeText,size: 15,),
-                                                Text("data")
-                                              ],
-                                            ),
-                                          ),
-                                          right: 10,
-                                          top: 10,
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                ],
-                              );
-                            },
-                          )
-                        );
-                      } else if(snapshot.hasError) {
-                        print("${snapshot.error}");
-                      }
-                      return CircularProgressIndicator();
-                    },
-                  ),
-                ],
-              )
+              UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Near you"),
+              DividerWidget(size: size),
+              UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Suggested"),
+              DividerWidget(size: size),
+              UserInfoWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Top walkers"),
             ],
           ),
         ),
@@ -239,6 +151,51 @@ class SearchBarWidget extends StatelessWidget {
                 borderSide: BorderSide.none)
         ),
       ),
+    );
+  }
+}
+
+class UserInfoWidget extends StatelessWidget {
+  const UserInfoWidget({
+    super.key,
+    required this.size,
+    required this.homeInfoModel,
+    required this.userInfoType,
+  });
+
+  final HomeInfoModel homeInfoModel;
+  final Size size;
+  final String userInfoType;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 16, bottom: 9.5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TitleTextWidget(title: userInfoType),
+              TextButton(
+                onPressed: (){},
+                child: Text(
+                  "View all",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: AppColor.black,
+                    fontFamily: "Poppins",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: -0.41,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        UserInfoListWidget(size: size, homeInfoModel: homeInfoModel, userInfoType: "Near you"),
+      ],
     );
   }
 }
