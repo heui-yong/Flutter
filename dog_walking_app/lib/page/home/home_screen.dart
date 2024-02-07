@@ -13,14 +13,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<HomeInfo>>homeInfo;
+  late Future<List<UserInfo>>nearList;
+  var homeInfoModel = HomeInfoModel();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    homeInfo = ApiService().fetchHomeInfo();
+    nearList = homeInfoModel.getNearList();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,51 +33,93 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 40, left: 16),
-          child: FutureBuilder<List<HomeInfo>>(
-            future: homeInfo,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Column(
-                  children: [
-                    HomeWidget(size: size),
-                    const SizedBox(height: 22,),
-                    const SearchBarWidget(),
-                    const SizedBox(height: 22,),
-                    Column(
+          child: Column(
+            children: [
+              HomeWidget(size: size),
+              const SizedBox(height: 22,),
+              const SearchBarWidget(),
+              const SizedBox(height: 22,),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16, bottom: 9.5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16, bottom: 9.5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const TitleTextWidget(title: "Near you"),
-                              TextButton(
-                                onPressed: (){},
-                                child: Text(
-                                  "View all",
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: AppColor.black,
-                                    fontFamily: "Poppins",
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    letterSpacing: -0.41,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        const TitleTextWidget(title: "Near you"),
+                        TextButton(
+                          onPressed: (){},
+                          child: Text(
+                            "View all",
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: AppColor.black,
+                              fontFamily: "Poppins",
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.41,
+                            ),
                           ),
                         ),
-                        //리스트뷰 만글기
                       ],
-                    )
-                  ],
-                );
-              } else if(snapshot.hasError) {
-                print("${snapshot.error}");
-              }
-              return CircularProgressIndicator();
-            },
+                    ),
+                  ),
+                  FutureBuilder<List<UserInfo>>(
+                    future: nearList,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return SizedBox(
+                          height: 180,
+                          width: size.width,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data!.length,
+                            separatorBuilder: (context, index) => const SizedBox(
+                              width: 43,
+                            ),
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(14),
+                                    child: Stack(
+                                      children: [
+                                        Image(image: AssetImage("assets/images/home_1.png"),),
+                                        Positioned(
+                                          child: Container(
+                                            width: 49,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(6),
+                                                color: AppColor.scopeBg.withOpacity(0.2)
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Icon(Icons.star_purple500_sharp, color: AppColor.scopeText,size: 15,),
+                                                Text("data")
+                                              ],
+                                            ),
+                                          ),
+                                          right: 10,
+                                          top: 10,
+                                        ),
+                                      ],
+                                    )
+                                  ),
+                                ],
+                              );
+                            },
+                          )
+                        );
+                      } else if(snapshot.hasError) {
+                        print("${snapshot.error}");
+                      }
+                      return CircularProgressIndicator();
+                    },
+                  ),
+                ],
+              )
+            ],
           ),
         ),
       )

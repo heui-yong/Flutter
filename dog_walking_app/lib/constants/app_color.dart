@@ -17,6 +17,8 @@ class AppColor {
   static const googleBorder = Color(0xffB0B0B0);
   static const searchBarBg = Color(0xffF0F0F0);
   static const searchBarText = Color(0xffA1A1A1);
+  static const scopeBg = Color(0xffE5E5EA);
+  static const scopeText = Color(0xffFFCB55);
 
 
 

@@ -12,6 +12,7 @@ class ApiService {
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
+      print("response.statusCode == 200 ${response.body}");
       final Map<String, dynamic> json = jsonDecode(response.body);
       if(json case {'homeInfo' : List homeInfoList}) {
         for (var homeInfo in homeInfoList) {

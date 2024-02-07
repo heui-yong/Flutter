@@ -1,65 +1,60 @@
 import 'package:dog_walking_app/services/api_service.dart';
 
 class HomeInfoModel {
+  final Future<List<HomeInfo>> homeInfoList;
+
+  HomeInfoModel() : homeInfoList = ApiService().fetchHomeInfo();
+
+  Future<List<UserInfo>> getNearList() async {
+    try {
+      List<HomeInfo> homeInfo = await homeInfoList;
+      List<UserInfo> nearList = homeInfo.first.nearList;
+      return nearList;
+    } catch (e) {
+      throw Exception('Failed to load data: $e');
+    }
+  }
 
 }
 
 
 
 class HomeInfo {
-  List<Near> near;
-  List<Suggested> suggested;
+  List<UserInfo> nearList;
+  List<UserInfo> suggestedList;
 
-  HomeInfo({required this.near, required this.suggested});
+  HomeInfo({required this.nearList, required this.suggestedList});
 
   factory HomeInfo.fromJson(Map<String, dynamic> json) {
     var nearList = json['near'] as List;
-    List<Near> changeNearList =
-      nearList.map<Near>((e) => Near.fromJson(e)).toList();
+    List<UserInfo> changeNearList =
+      nearList.map<UserInfo>((e) => UserInfo.fromJson(e)).toList();
 
     var suggestedList = json['suggested'] as List;
-    List<Suggested> changeSuggestedList =
-      suggestedList.map<Suggested>((e) => Suggested.fromJson(e)).toList();
+    List<UserInfo> changeSuggestedList =
+      suggestedList.map<UserInfo>((e) => UserInfo.fromJson(e)).toList();
 
     return HomeInfo(
-      near: changeNearList,
-      suggested: changeSuggestedList,
+      nearList: changeNearList,
+      suggestedList: changeSuggestedList,
     );
   }
 }
 
-class Near {
+class UserInfo {
   String name;
   String distance;
   String cost;
   String imageUrl;
 
-  Near({required this.name, required this.distance, required this.cost, required this.imageUrl});
+  UserInfo({required this.name, required this.distance, required this.cost, required this.imageUrl});
 
-  factory Near.fromJson(Map<String, dynamic> json) {
-    return Near(
+  factory UserInfo.fromJson(Map<String, dynamic> json) {
+    return UserInfo(
       name: json['name'],
       distance: json['distance'],
       cost: json['cost'],
       imageUrl: json['imageUrl'],
-    );
-  }
-}
-
-class Suggested {
-  String name;
-  String distance;
-  String cost;
-  String imageUrl;
-
-  Suggested({required this.name, required this.distance, required this.cost, required this.imageUrl});
-
-  factory Suggested.fromJson(Map<String, dynamic> json) {
-    return Suggested(
-        name: json['name'],
-        distance: json['distance'],
-        cost: json['cost'],
-        imageUrl: json['imageUrl'],
     );
   }
 }
