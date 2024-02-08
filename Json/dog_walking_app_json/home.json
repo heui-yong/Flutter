@@ -6,35 +6,35 @@
               "name":"Mason York",
               "distance":"7 km",
               "cost":"$3",
-              "imageUrl":"assets/images/home_1.png",
+              "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_1.png",
               "scope":"4.1"
            },
            {
               "name":"Mark Greene",
               "distance":"14 km",
               "cost":"$5",
-              "imageUrl":"assets/images/home_2.png",
+              "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_2.png",
               "scope":"4.8"
            },
            {
               "name":"Mark treene",
               "distance":"2 km",
               "cost":"$5",
-              "imageUrl":"assets/images/home_3.png",
+              "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_3.png",
               "scope":"3.4"
            },
            {
               "name":"Trina kain",
               "distance":"4 km",
               "cost":"$3",
-              "imageUrl":"assets/images/home_4.png",
+              "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_4.png",
               "scope":"4.2"
            },
            {
               "name":"HeuiYong Lee",
               "distance":"985 km",
               "cost":"$74",
-              "imageUrl":"assets/images/home_5.png",
+              "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_5.png",
               "scope":"5.0"
            }
         ],
@@ -43,35 +43,35 @@
             "name":"HeuiYong Lee",
             "distance":"985 km",
             "cost":"$74",
-            "imageUrl":"assets/images/home_5.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_5.png",
             "scope":"5.0"
          },
          {
             "name":"Mark Greene",
             "distance":"14 km",
             "cost":"$5",
-            "imageUrl":"assets/images/home_2.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_2.png",
             "scope":"4.8"
          },
          {
             "name":"Mason York",
             "distance":"7 km",
             "cost":"$3",
-            "imageUrl":"assets/images/home_1.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_1.png",
             "scope":"4.1"
          },
          {
             "name":"Mark treene",
             "distance":"2 km",
             "cost":"$5",
-            "imageUrl":"assets/images/home_3.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_3.png",
             "scope":"3.4"
          },
          {
             "name":"Trina kain",
             "distance":"4 km",
             "cost":"$3",
-            "imageUrl":"assets/images/home_4.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_4.png",
             "scope":"4.2"
          }
         ],
@@ -80,35 +80,35 @@
             "name":"Mark Greene",
             "distance":"14 km",
             "cost":"$5",
-            "imageUrl":"assets/images/home_2.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_2.png",
             "scope":"4.8"
          },
          {
             "name":"Trina kain",
             "distance":"4 km",
             "cost":"$3",
-            "imageUrl":"assets/images/home_4.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_4.png",
             "scope":"4.2"
          },
          {
             "name":"Mark treene",
             "distance":"2 km",
             "cost":"$5",
-            "imageUrl":"assets/images/home_3.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_3.png",
             "scope":"3.4"
           },
          {
             "name":"HeuiYong Lee",
             "distance":"985 km",
             "cost":"$74",
-            "imageUrl":"assets/images/home_5.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_5.png",
             "scope":"5.0"
          },
          {
             "name":"Mason York",
             "distance":"7 km",
             "cost":"$3",
-            "imageUrl":"assets/images/home_1.png",
+            "imageUrl":"https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_1.png",
             "scope":"4.1"
           }
         ]
