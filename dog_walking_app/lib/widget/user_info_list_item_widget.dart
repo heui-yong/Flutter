@@ -20,7 +20,7 @@ class UserInfoListItemWidget extends StatelessWidget {
             child: Stack(
               children: [
                 Image.network(
-                  "https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_1.png",
+                  userInfo.imageUrl,
                   // image: AssetImage(userInfo.imageUrl),
                   width: 180,
                   height: 125,
@@ -38,10 +38,10 @@ class UserInfoListItemWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.star_purple500_sharp, color: AppColor.scopeText,size: 13,),
+                        const Icon(Icons.star_purple500_sharp, color: AppColor.scopeText,size: 13,),
                         Text(
                           userInfo.scope,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: AppColor.scopeText,
                               fontSize: 12,
                               fontFamily: "Poppins",
@@ -55,7 +55,7 @@ class UserInfoListItemWidget extends StatelessWidget {
               ],
             )
         ),
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         SizedBox(
           width: 180,
           child: Row(
@@ -66,7 +66,7 @@ class UserInfoListItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     userInfo.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: AppColor.black,
                         fontSize: 17,
                         fontFamily: "Poppins",
@@ -81,10 +81,10 @@ class UserInfoListItemWidget extends StatelessWidget {
                         width: 10,
                         height: 10,
                       ),
-                      SizedBox(width: 2,),
+                      const SizedBox(width: 2,),
                       Text(
                         "${userInfo.distance} from you",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: AppColor.searchBarText,
                             fontSize: 10,
                             fontFamily: "Poppins",
@@ -106,7 +106,7 @@ class UserInfoListItemWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     "${userInfo.cost}/h",
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: AppColor.white,
                         fontSize: 10,
                         fontFamily: "Poppins",

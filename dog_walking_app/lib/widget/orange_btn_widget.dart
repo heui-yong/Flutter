@@ -2,7 +2,7 @@ import 'package:dog_walking_app/model/home_info_model.dart';
 import 'package:dog_walking_app/services/api_service.dart';
 import 'package:flutter/material.dart';
 import '../constants/app_color.dart';
-import '../page/home/home_screen.dart';
+import '../page/home/home_main_screen.dart';
 
 class OrangeBtnWidget extends StatelessWidget {
   const OrangeBtnWidget({
@@ -18,7 +18,7 @@ class OrangeBtnWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomeMainScreen()));
         },
         child: Container(
           width: size.width,
