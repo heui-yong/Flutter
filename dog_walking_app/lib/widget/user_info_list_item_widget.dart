@@ -19,8 +19,9 @@ class UserInfoListItemWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(14),
             child: Stack(
               children: [
-                Image(
-                  image: AssetImage(userInfo.imageUrl),
+                Image.network(
+                  "https://raw.githubusercontent.com/heui-yong/Flutter/main/images/dog_walking_app_image/home_1.png",
+                  // image: AssetImage(userInfo.imageUrl),
                   width: 180,
                   height: 125,
                 ),
