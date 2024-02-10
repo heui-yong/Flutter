@@ -1,0 +1,7 @@
+class UserInfoDetailModel{
+
+}
+
+class UerInfoDetail{
+
+}
