@@ -17,25 +17,25 @@
          {
             "reviewer": "JeongYoon Baek", 
             "date": "20230331",
-            "reviewdesc": "very good!",
+            "reviewDesc": "very good!",
             "scope":"4.5"
          },
          {
             "reviewer": "A", 
             "date": "20231029",
-            "reviewdesc": "soso",
+            "reviewDesc": "soso",
             "scope":"3.0"
          },
          {
             "reviewer": "B", 
             "date": "20230822",
-            "reviewdesc": "soso",
+            "reviewDesc": "soso",
             "scope":"3.0"
          },
          {
             "reviewer": "C", 
             "date": "202301213",
-            "reviewdesc": "soso",
+            "reviewDesc": "soso",
             "scope":"3.0"
          }
       ]
@@ -57,31 +57,31 @@
          {
             "reviewer": "JeongYoon Baek", 
             "date": "20230331",
-            "reviewdesc": "very good!",
+            "reviewDesc": "very good!",
             "scope":"4.5"
          },
          {
             "reviewer": "AB", 
             "date": "20231129",
-            "reviewdesc": "soso",
+            "reviewDesc": "soso",
             "scope":"3.0"
          },
          {
             "reviewer": "BC", 
             "date": "20230921",
-            "reviewdesc": "soso",
+            "reviewDesc": "soso",
             "scope":"3.7"
          },
          {
             "reviewer": "CD", 
             "date": "20231224",
-            "reviewdesc": "bad",
+            "reviewDesc": "bad",
             "scope":"2.0"
          },
          {
             "reviewer": "DE", 
             "date": "20240103",
-            "reviewdesc": "bad",
+            "reviewDesc": "bad",
             "scope":"2.0"
          }
       ]
@@ -103,25 +103,25 @@
          {
             "reviewer": "ABC", 
             "date": "20231129",
-            "reviewdesc": "good",
+            "reviewDesc": "good",
             "scope":"4.0"
          },
          {
             "reviewer": "BCD", 
             "date": "20230921",
-            "reviewdesc": "very good!",
+            "reviewDesc": "very good!",
             "scope":"4.3"
          },
          {
             "reviewer": "CDE", 
             "date": "20231224",
-            "reviewdesc": "kind!",
+            "reviewDesc": "kind!",
             "scope":"3.9"
          },
          {
             "reviewer": "DEF", 
             "date": "20240103",
-            "reviewdesc": "soso",
+            "reviewDesc": "soso",
             "scope":"3.5"
          }
       ]
@@ -143,25 +143,25 @@
          {
             "reviewer": "ABC", 
             "date": "20231129",
-            "reviewdesc": "good",
+            "reviewDesc": "good",
             "scope":"5.0"
          },
          {
             "reviewer": "BCD", 
             "date": "20230921",
-            "reviewdesc": "very good!",
+            "reviewDesc": "very good!",
             "scope":"5.0"
          },
          {
             "reviewer": "CDE", 
             "date": "20231224",
-            "reviewdesc": "kind!",
+            "reviewDesc": "kind!",
             "scope":"5.0"
          },
          {
             "reviewer": "DEF", 
             "date": "20240103",
-            "reviewdesc": "goooooood!!!!!!!!",
+            "reviewDesc": "goooooood!!!!!!!!",
             "scope":"5.0"
          }
       ]
@@ -183,25 +183,25 @@
          {
             "reviewer": "ABC", 
             "date": "20231129",
-            "reviewdesc": "good",
+            "reviewDesc": "good",
             "scope":"4.0"
          },
          {
             "reviewer": "BCD", 
             "date": "20230921",
-            "reviewdesc": "very good!",
+            "reviewDesc": "very good!",
             "scope":"4.3"
          },
          {
             "reviewer": "CDE", 
             "date": "20231224",
-            "reviewdesc": "kind!",
+            "reviewDesc": "kind!",
             "scope":"3.9"
          },
          {
             "reviewer": "DEF", 
             "date": "20240103",
-            "reviewdesc": "soso",
+            "reviewDesc": "soso",
             "scope":"3.5"
          }
       ]
