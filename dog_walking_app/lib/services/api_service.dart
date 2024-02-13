@@ -31,6 +31,7 @@ class ApiService {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> json = jsonDecode(response.body);
+      print("${response.body}");
       if(json case {'userDetailInfo' : List userDetailInfoList}) {
         for (var userDetailInfo in userDetailInfoList) {
           uerDetailInfoInstances.add(UerDetailInfo.fromJson(userDetailInfo));

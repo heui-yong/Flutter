@@ -1,11 +1,20 @@
 import '../services/api_service.dart';
 
 class UserInfoDetailModel{
-  final Future<List<UerDetailInfo>> _uerInfoDetail;
+  final Future<List<UerDetailInfo>> _uerInfoDetailList;
 
   List<UerDetailInfo>? _cachedUerInfoDetail;
 
-  UserInfoDetailModel() : _uerInfoDetail = ApiService().fetchUerDetailInfo();
+  UserInfoDetailModel() : _uerInfoDetailList = ApiService().fetchUerDetailInfo();
+
+  Future<List<UerDetailInfo>> get uerDetailInfoList async {
+    _cachedUerInfoDetail ??= await _uerInfoDetailList;
+    return _cachedUerInfoDetail!;
+  }
+
+  Future<UerDetailInfo> getUerDetailInfo(String name) async {
+    return (await uerDetailInfoList).firstWhere((uerDetailInfo) => uerDetailInfo.name == name);
+  }
 }
 
 class UerDetailInfo{
