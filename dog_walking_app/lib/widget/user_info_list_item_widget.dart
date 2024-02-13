@@ -21,7 +21,6 @@ class UserInfoListItemWidget extends StatelessWidget {
               children: [
                 Image.network(
                   userInfo.imageUrl,
-                  // image: AssetImage(userInfo.imageUrl),
                   width: 180,
                   height: 125,
                 ),
