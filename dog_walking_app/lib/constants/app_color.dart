@@ -20,6 +20,7 @@ class AppColor {
   static const scopeBg = Color(0xffE5E5EA);
   static const scopeText = Color(0xffFFCB55);
   static const dividerColor = Color(0xffE8E8E8);
+  static const btnBg = Color(0xffF5F5F5);
 
 
 

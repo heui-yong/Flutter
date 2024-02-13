@@ -59,26 +59,6 @@ class UerDetailInfo{
   }
 }
 
-// class About {
-//   String age;
-//   String experience;
-//   String description;
-//
-//   About({
-//     required this.age,
-//     required this.experience,
-//     required this.description
-//   });
-//
-//   factory About.fromJson(Map<String, dynamic> json) {
-//     return About(
-//       age: json['age'],
-//       experience: json['experience'],
-//       description: json['description'],
-//     );
-//   }
-// }
-
 class Reviews {
   String reviewer;
   String date;
