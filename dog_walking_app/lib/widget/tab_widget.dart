@@ -88,3 +88,27 @@ class _TabWidgetState extends State<TabWidget> with TickerProviderStateMixin {
     );
   }
 }
+
+class TabAboutWidget extends StatelessWidget {
+  const TabAboutWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 22),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Column(
+                children: [
+                  Text("")
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
