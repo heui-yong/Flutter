@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import '../constants/app_color.dart';
+import '../model/user_detail_info_model.dart';
 
 class TabWidget extends StatefulWidget {
   const TabWidget({
     super.key,
+    required this.data,
   });
+
+  final UerDetailInfo data;
 
   @override
   State<TabWidget> createState() => _TabWidgetState();
@@ -77,7 +81,7 @@ class _TabWidgetState extends State<TabWidget> with TickerProviderStateMixin {
               physics: NeverScrollableScrollPhysics(),
               controller: _myController,
               children: [
-                Text("1111111"),
+                TabAboutWidget(data: widget.data,),
                 Text("2222222"),
                 Text("3333333"),
               ],
@@ -90,7 +94,9 @@ class _TabWidgetState extends State<TabWidget> with TickerProviderStateMixin {
 }
 
 class TabAboutWidget extends StatelessWidget {
-  const TabAboutWidget({super.key});
+  const TabAboutWidget({super.key, required this.data,});
+
+  final UerDetailInfo data;
 
   @override
   Widget build(BuildContext context) {
@@ -101,12 +107,56 @@ class TabAboutWidget extends StatelessWidget {
           Row(
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("")
+                  Text(
+                    "Age",
+                    style: TextStyle(
+                      color: AppColor.googleBorder,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Poppins",
+                    ),
+                  ),
+                  Text(
+                    "${data.about["age"]}",
+                    style: TextStyle(
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Poppins",
+                      fontSize: 17
+                    ),
+                  ),
                 ],
-              )
+              ),
+              SizedBox(width: 45,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Experience",
+                    style: TextStyle(
+                      color: AppColor.googleBorder,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Poppins",
+                    ),
+                  ),
+                  Text(
+                    "${data.about["experience"]}",
+                    style: TextStyle(
+                        color: AppColor.black,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "Poppins",
+                        fontSize: 17
+                    ),
+                  ),
+                ],
+              ),
             ],
-          )
+          ),
+          const SizedBox(height: 22,),
+
         ],
       ),
     );

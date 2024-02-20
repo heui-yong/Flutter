@@ -57,7 +57,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                             BottomSheetTopWidget(data: data),
                             DividerWidget(size: widget.size,),
                             SizedBox(height: 22,),
-                            TabWidget()
+                            TabWidget(data: data)
                           ],
                         ),
                       );
