@@ -4,10 +4,13 @@ import '../../model/user_detail_info_model.dart';
 import '../../widget/bottom_sheet_widget.dart';
 
 class UerDetailInfoScreen extends StatelessWidget {
-  final UserInfoDetailModel userInfoDetailModel;
+  // final UserInfoDetailModel userInfoDetailModel;
   final String name;
 
-  const UerDetailInfoScreen({super.key, required this.userInfoDetailModel, required this.name});
+  const UerDetailInfoScreen({
+    super.key,
+    // required this.userInfoDetailModel,
+    required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class UerDetailInfoScreen extends StatelessWidget {
           AppBarWidget(),
           BottomSheetWidget(
             size: size,
-            userInfoDetailModel: userInfoDetailModel,
+            // userInfoDetailModel: userInfoDetailModel,
             name: name,
           ),
         ],

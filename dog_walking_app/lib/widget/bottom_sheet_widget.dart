@@ -1,5 +1,6 @@
 import 'package:dog_walking_app/widget/tab_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../constants/app_color.dart';
 import '../model/user_detail_info_model.dart';
 import 'bottom_sheet_top_widget.dart';
@@ -9,12 +10,12 @@ class BottomSheetWidget extends StatefulWidget {
   const BottomSheetWidget({
     super.key,
     required this.size,
-    required this.userInfoDetailModel,
+    // required this.userInfoDetailModel,
     required this.name
   });
 
   final Size size;
-  final UserInfoDetailModel userInfoDetailModel;
+  // final UserInfoDetailModel userInfoDetailModel;
   final String name;
 
   @override
@@ -28,7 +29,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    uerDetailInfo = widget.userInfoDetailModel.getUerDetailInfo(widget.name);
+    uerDetailInfo = context.read<UserInfoDetailModel>().getUerDetailInfo(widget.name);
   }
 
   @override
@@ -50,6 +51,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       var data = snapshot.data!;
+                      print("data = $data");
                       return Padding(
                         padding: const EdgeInsets.only(left: 16),
                         child: Column(

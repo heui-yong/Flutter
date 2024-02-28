@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import '../services/api_service.dart';
 
-class UserInfoDetailModel{
+class UserInfoDetailModel with ChangeNotifier{
   final Future<List<UerDetailInfo>> _uerInfoDetailList;
 
   List<UerDetailInfo>? _cachedUerInfoDetail;

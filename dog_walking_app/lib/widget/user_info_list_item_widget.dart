@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 import '../constants/app_color.dart';
 import '../model/home_info_model.dart';
 import '../model/user_detail_info_model.dart';
@@ -38,9 +39,12 @@ class UserInfoListItemWidget extends StatelessWidget {
             );
           },
           pageBuilder: (context, animation, secondaryAnimation) =>
-              UerDetailInfoScreen(
-                userInfoDetailModel: UserInfoDetailModel(),
-                name: name,
+              ChangeNotifierProvider<UserInfoDetailModel>(
+                create: (context) => UserInfoDetailModel(),
+                child: UerDetailInfoScreen(
+                  // userInfoDetailModel: UserInfoDetailModel(),
+                  name: name,
+                ),
               ),
           fullscreenDialog: false,
         ),
