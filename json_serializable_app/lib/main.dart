@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:json_serializable_app/provider/human_info_provier.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MainScreen());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainScreen extends StatelessWidget {
+  MainScreen({super.key});
+
+  final provider = HumanInfoProvider();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      home: ChangeNotifierProvider<HumanInfoProvider>(
+        create: (context) => provider,
+        child: Placeholder(),
       ),
-      home: Placeholder(),
     );
   }
 }

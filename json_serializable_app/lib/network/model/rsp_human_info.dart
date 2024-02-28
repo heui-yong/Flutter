@@ -1,6 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'human_info.g.dart';
+part 'rsp_human_info.g.dart';
+
+@JsonSerializable()
+class ReqRspHumanInfo {
+  List<HumanInfo> humanInfo;
+
+  ReqRspHumanInfo({required this.humanInfo});
+
+  factory ReqRspHumanInfo.fromJson(Map<String, dynamic> json) => _$ReqRspHumanInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$ReqRspHumanInfoToJson(this);
+}
+
 
 @JsonSerializable()
 class HumanInfo {
