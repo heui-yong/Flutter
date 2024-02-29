@@ -6,14 +6,13 @@ part of 'rsp_human_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReqRspHumanInfo _$ReqRspHumanInfoFromJson(Map<String, dynamic> json) =>
-    ReqRspHumanInfo(
+RspHumanInfo _$RspHumanInfoFromJson(Map<String, dynamic> json) => RspHumanInfo(
       humanInfo: (json['humanInfo'] as List<dynamic>)
           .map((e) => HumanInfo.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$ReqRspHumanInfoToJson(ReqRspHumanInfo instance) =>
+Map<String, dynamic> _$RspHumanInfoToJson(RspHumanInfo instance) =>
     <String, dynamic>{
       'humanInfo': instance.humanInfo,
     };

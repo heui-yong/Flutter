@@ -19,29 +19,28 @@ class _ApiRestClient implements ApiRestClient {
   String? baseUrl;
 
   @override
-  Future<ReqRspHumanInfo> getHumanInfo() async {
+  Future<String> getHumanInfo() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<ReqRspHumanInfo>(Options(
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
-            .compose(
-              _dio.options,
-              '/heui-yong/Flutter/main/Json/json_serialiazble_app_json/human_info.json',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = ReqRspHumanInfo.fromJson(_result.data!);
+        .compose(
+          _dio.options,
+          '/human_info.json',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data!;
     return value;
   }
 
