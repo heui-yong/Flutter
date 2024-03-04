@@ -17,9 +17,7 @@ class HumanInfoProvider  with ChangeNotifier {
   Future<void> fetchHumanInfo() async {
     try {
       final response = await apiClient.getHumanInfo();
-      var decodeData = jsonDecode(response);
-      final value = RspHumanInfo.fromJson(decodeData);
-      humanInfoList = value.humanInfo;
+      humanInfoList = response.humanInfo;
       notifyListeners();
     } catch (e) {
       // 에러 처리
