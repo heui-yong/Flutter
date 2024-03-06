@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:json_serializable_app/network/model/rsp_human_info.dart';
 
